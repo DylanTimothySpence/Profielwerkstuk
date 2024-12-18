@@ -59,7 +59,7 @@ async def oppad(path, n, g):
                 graph[next_node][store_index_reverse_connection][3] -=g # idem voor de reverse connectie
                 graph[next_node][store_index_reverse_connection][4] = latencyfunction(x, w, graph[node][store_index_reverse_connection][3])
 
-    print(f"{n} aangekomen    |    werkelijke looptijd: {totaltime}")
+    #print(f"{n} aangekomen    |    werkelijke looptijd: {totaltime}")
 
 async def flow(s, t, m, g):
     tasks = []
@@ -69,7 +69,7 @@ async def flow(s, t, m, g):
         length = route[1]
         task = asyncio.create_task(oppad(path, n, g)) # stuurt een persoon op dit pad
         tasks.append(task)
-        print(f"{n} op weg   |   voorspelde looptijd: {length}   |   route:{path}")
+        #print(f"{n} op weg   |   voorspelde looptijd: {length}   |   route:{path}")
         tleave = 1
         await asyncio.sleep(tleave*g)  # elke seconde gaat een nieuw persoon de deur uit
     # wachten tot elke persoon is aangekomen

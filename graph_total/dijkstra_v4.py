@@ -1,13 +1,10 @@
 
 #import math
 #from datetime import datetime
-##from converter import csv_to_adjacency_list
+from converter import csv_to_adjacency_list
 
 #print("-----------", (datetime.now().strftime("%Y-%m-%d %H:%M:%S")) ,"-----------")
 #x=datetime.now()
-
-route = []
-time = 0
 
 def check_connected_nodes(graph, node, path_weight, previous_node, visited):
     for connected_node, weight in graph[node]:  
@@ -45,13 +42,10 @@ def run_algorithm(graph, startnode, endnode, speed):
     previous_node = [None] * len(graph)
     while not visited[endnode]:
         check_connected_nodes(graph, closest_unvisited_node(path_weight, visited), path_weight, previous_node, visited)
-    route = find_route(startnode, endnode, previous_node)
-    time = walking_time(path_weight[endnode], speed)
-    return route
-    return time
+    
+    return find_route(startnode, endnode, previous_node), walking_time(path_weight[endnode], speed)
 
-    #return (find_route(startnode, endnode, previous_node), walking_time(path_weight[endnode], speed))
-
-#print(run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 26, 150, 1.34))
+route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 114, 8, 1.34)
+print(f"Route: {route}, Time: {time}")
 #y=datetime.now()
 #print('time to run is: ', y-x)

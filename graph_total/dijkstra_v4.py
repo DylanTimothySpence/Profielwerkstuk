@@ -31,9 +31,11 @@ def find_route(startnode, endnode, previous_node):
     route.reverse()
     return route
 
-def walking_time(route_weight, speed):
-    time = round((route_weight * (1.34/speed)),2)
-    return time
+def walking_time(tsys, speed, fastest_path):
+    dtdp = 0.95
+    tcor = tsys - float((len(fastest_path)-2)*dtdp)
+    tgkz = round((tcor * (1.34/speed)),2)
+    return tgkz
 
 def run_algorithm(graph, startnode, endnode, speed):
     visited = [False] * len(graph)
@@ -42,10 +44,10 @@ def run_algorithm(graph, startnode, endnode, speed):
     previous_node = [None] * len(graph)
     while not visited[endnode]:
         check_connected_nodes(graph, closest_unvisited_node(path_weight, visited), path_weight, previous_node, visited)
-    
-    return find_route(startnode, endnode, previous_node), walking_time(path_weight[endnode], speed)
+    fastest_path = find_route(startnode, endnode, previous_node)
+    return fastest_path, walking_time(path_weight[endnode], speed, fastest_path)
 
-route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 114, 8, 1.34)
+route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 134, 136, 1.34)
 print(f"Route: {route}, Time: {time}")
 #y=datetime.now()
 #print('time to run is: ', y-x)

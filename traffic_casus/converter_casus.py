@@ -22,7 +22,8 @@ def csv_to_adjacency_list(file_path):
     
     return dict(graph)
 
-'''
+''' 
+#input voor los laten runnen van de converter, print de adjacency list van de graaf
 graph = csv_to_adjacency_list('./traffic_casus/trafficgraph.csv')
 
 print("graph = {")

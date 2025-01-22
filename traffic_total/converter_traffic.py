@@ -3,12 +3,9 @@ from collections import defaultdict
 
 def csv_to_adjacency_list(file_path):
     graph = defaultdict(list)
-    
     with open(file_path, 'r') as csvfile:
         reader = csv.reader(csvfile)
-        
         next(reader, None)
-        
         for row in reader:
             source = int(row[0])
             if row[1] and row[2] and row[3]:
@@ -17,13 +14,13 @@ def csv_to_adjacency_list(file_path):
                 graph[source].append([int(row[4]), float(row[5]), float(row[6]), 0, float(row[5])])
             if row[7] and row[8] and row[9]:
                 graph[source].append([int(row[7]), float(row[8]), float(row[9]), 0, float(row[8])])
-                
-                
-    
+            if row[10] and row[11] and row[12]:
+                graph[source].append([int(row[10]), float(row[11]), float(row[12]), 0, float(row[11])])
     return dict(graph)
 
-'''
-graph = csv_to_adjacency_list('./traffic_casus/trafficgraph.csv')
+''' 
+#input voor los laten runnen van de converter, print de adjacency list van de graaf
+graph = csv_to_adjacency_list('./traffic_casus/hlgraph_traffic.csv')
 
 print("graph = {")
 for node, edges in sorted(graph.items()):

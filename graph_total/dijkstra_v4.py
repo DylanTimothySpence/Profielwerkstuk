@@ -47,7 +47,7 @@ def run_algorithm(graph, startnode, endnode, speed):
     fastest_path = find_route(startnode, endnode, previous_node)
     return fastest_path, walking_time(path_weight[endnode], speed, fastest_path)
 
-route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 134, 136, 1.34)
-print(f"Route: {route}, Time: {time}")
+# route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 134, 136, 1.34)
+# print(f"Route: {route}, Time: {time}")
 #y=datetime.now()
 #print('time to run is: ', y-x)

@@ -19,9 +19,9 @@ def csv_to_adjacency_list(file_path):
     return dict(graph)
     
 
-graph = csv_to_adjacency_list('./graph_total/hlgraph.csv')
+'''graph = csv_to_adjacency_list('./graph_total/hlgraph.csv')
 
 print("graph = {")
 for node, edges in sorted(graph.items()):
     print(f"    {node}: {edges},")
-print("}")
+print("}")'''

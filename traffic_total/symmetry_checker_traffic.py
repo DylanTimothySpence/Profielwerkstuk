@@ -1,6 +1,9 @@
+print('hoi')
 from converter_traffic import csv_to_adjacency_list
-graph = csv_to_adjacency_list('./traffic_casus/trafficgraph.csv')
-
+graph = csv_to_adjacency_list('./traffic_total/hlgraph_traffic.csv')
+for node, edges in graph.items():
+    print(f'{node} : {edges}')
+    print('')
 def symmetry_check(graph):
     is_symmetric = True  # Assume graph is symmetric initially
     for node, edges in graph.items():

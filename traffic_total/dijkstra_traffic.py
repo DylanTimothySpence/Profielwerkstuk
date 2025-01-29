@@ -1,16 +1,11 @@
 
-#import math
-#from datetime import datetime
-from converter import csv_to_adjacency_list
-
-#print("-----------", (datetime.now().strftime("%Y-%m-%d %H:%M:%S")) ,"-----------")
-#x=datetime.now()
+#from converter_traffic import csv_to_adjacency_list
 
 def check_connected_nodes(graph, node, path_weight, previous_node, visited):
-    for connected_node, weight in graph[node]:  
-        if path_weight[node] + weight < path_weight[connected_node]:  
-            path_weight[connected_node] = path_weight[node] + weight  
-            previous_node[connected_node] = node  
+    for buur, weight, x, n, t in graph[node]:  
+        if path_weight[node] + t < path_weight[buur]:  
+            path_weight[buur] = path_weight[node] + t  
+            previous_node[buur] = node  
     visited[node] = True
              
 def closest_unvisited_node(path_weight, visited):
@@ -47,7 +42,4 @@ def run_algorithm(graph, startnode, endnode, speed):
     fastest_path = find_route(startnode, endnode, previous_node)
     return fastest_path, walking_time(path_weight[endnode], speed, fastest_path)
 
-route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 134, 136, 1.34)
-print(f"Route: {route}, Time: {time}")
-#y=datetime.now()
-#print('time to run is: ', y-x)
+#print(run_algorithm(csv_to_adjacency_list('trafficgraph.csv'), 14, 4, 1.34))

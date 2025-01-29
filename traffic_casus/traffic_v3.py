@@ -1,5 +1,5 @@
-from dijkstra_traffic import run_algorithm
-from converter_traffic import csv_to_adjacency_list
+from traffic_casus.dijkstra_casus import run_algorithm
+from traffic_casus.converter_casus import csv_to_adjacency_list
 import threading
 import time
 from datetime import datetime

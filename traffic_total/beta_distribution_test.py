@@ -1,0 +1,11 @@
+from scipy.stats import beta
+print('aaa')
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))
+print(beta.rvs(2,2))

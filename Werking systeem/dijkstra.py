@@ -1,11 +1,3 @@
-
-#import math
-#from datetime import datetime
-from converter import csv_to_adjacency_list
-
-#print("-----------", (datetime.now().strftime("%Y-%m-%d %H:%M:%S")) ,"-----------")
-#x=datetime.now()
-
 def check_connected_nodes(graph, node, path_weight, previous_node, visited):
     for connected_node, weight in graph[node]:  
         if path_weight[node] + weight < path_weight[connected_node]:  
@@ -32,8 +24,8 @@ def find_route(startnode, endnode, previous_node):
     return route
 
 def walking_time(tsys, speed, fastest_path):
-    dtdp = 0.95
-    tcor = tsys - float((len(fastest_path)-2)*dtdp)
+    dtgem = 0.95
+    tcor = tsys - float((len(fastest_path)-2)*dtgem)
     tgkz = round((tcor * (1.34/speed)),2)
     return tgkz
 
@@ -47,7 +39,8 @@ def run_algorithm(graph, startnode, endnode, speed):
     fastest_path = find_route(startnode, endnode, previous_node)
     return fastest_path, walking_time(path_weight[endnode], speed, fastest_path)
 
-# route, time = run_algorithm(csv_to_adjacency_list('./graph_total/hlgraph.csv'), 134, 136, 1.34)
-# print(f"Route: {route}, Time: {time}")
-#y=datetime.now()
-#print('time to run is: ', y-x)
+'''#promt om een snelste pad te vinden, zet hier respectievelijk                   beginpunt, eindpunt en snelheid
+#__________________________________________________________________________________________V_____V____V
+from converter import csv_to_adjacency_list
+route, time = run_algorithm(csv_to_adjacency_list('./Werking systeem/weighted_graph.csv'), 3, 133, 1.34)
+print(f"Route: {route}, Time: {time}")'''

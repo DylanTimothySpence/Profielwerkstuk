@@ -18,9 +18,8 @@ def csv_to_adjacency_list(file_path):
                 graph[source].append([int(row[7]), float(row[8])])
     return dict(graph)
     
-
-'''graph = csv_to_adjacency_list('./graph_total/hlgraph.csv')
-
+'''#promt om de graaf als adjacency list te printen in de terminal
+graph = csv_to_adjacency_list('./Werking systeem/weighted_graph.csv')
 print("graph = {")
 for node, edges in sorted(graph.items()):
     print(f"    {node}: {edges},")

@@ -1,14 +1,10 @@
-print('hoi')
-from converter_traffic import csv_to_adjacency_list
-graph = csv_to_adjacency_list('./traffic_total/hlgraph_traffic.csv')
-for node, edges in graph.items():
-    print(f'{node} : {edges}')
-    print('')
+from converter_casus import csv_to_adjacency_list
+graph = csv_to_adjacency_list('./Casus s,t-stroom/double_weighted_graph_casus.csv')
+
 def symmetry_check(graph):
-    is_symmetric = True  # Assume graph is symmetric initially
+    is_symmetric = True  
     for node, edges in graph.items():
         for connected_node, weight, x, n, t in edges:
-            # Check if the reverse edge exists and if the weight matches
             reverse_found = False
             for reverse_neighbor, reverse_weight, reverse_x, reverse_n, reverse_t in graph.get(connected_node, []):
                 if reverse_neighbor == node:
@@ -28,9 +24,8 @@ def symmetry_check(graph):
                     break
             if not reverse_found:
                 print(f"Warning: No reverse connection from {connected_node} to {node}.")
-                is_symmetric = False  # Still continue checking, but mark as asymmetric
-
-    return is_symmetric  # Return True 
+                is_symmetric = False  
+    return is_symmetric  
 
 symmetry_check(graph)
     

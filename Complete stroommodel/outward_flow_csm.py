@@ -1,8 +1,5 @@
 import asyncio
-from dijkstra_traffic import run_algorithm
-from asyncio import Lock
-
-latency_lock = Lock()
+from dijkstra_csm import run_algorithm
 
 def latency_function(x, w, n):
     if n > 0:
@@ -17,11 +14,11 @@ def latency_function(x, w, n):
         L = w
     return L
 
-async def walk_route(path, graph, deltatime):
+async def walk_route(graph_lock, path, graph, deltatime):
     for i, node in enumerate(path):
         if i < len(path) - 1:
             next_node = path[i + 1]
-            async with latency_lock:
+            async with graph_lock:
                 for index_connection, connection in enumerate(graph[node]): 
                     if connection[0] == next_node:
                         connection[3] += 1
@@ -39,8 +36,11 @@ async def walk_route(path, graph, deltatime):
                         store_index_reverse_connection = index_connection 
                         undirected = True
                         break
-            await asyncio.sleep(Le*deltatime)
-            async with latency_lock:
+            try:
+                await asyncio.sleep(Le*deltatime)
+            except asyncio.CancelledError:
+                raise
+            async with graph_lock:
                 graph[node][store_index_connection][3] -=1 
                 Le_after = latency_function(x, w, graph[node][store_index_connection][3])
                 graph[node][store_index_connection][4] =  Le_after
@@ -48,11 +48,21 @@ async def walk_route(path, graph, deltatime):
                     graph[next_node][store_index_reverse_connection][3] -=1 
                     graph[next_node][store_index_reverse_connection][4] = Le_after
 
-async def outward_flow(source_node, target_nodes, graph, tleave, deltatime):
+async def outward_flow(graph_lock, waittime, source_node, target_nodes, graph, tleave, deltatime):
+    try:
+        await asyncio.sleep(waittime * deltatime)
+    except asyncio.CancelledError:
+        raise
     tasks = []
     for location in target_nodes:
-        path = run_algorithm(graph, source_node, location, 1.34)[0]
-        task = asyncio.create_task(walk_route(path, graph, deltatime)) 
+        async with graph_lock:
+            path = run_algorithm(graph, source_node, location, 1.34)[0]
+        task = asyncio.create_task(walk_route(graph_lock, path, graph, deltatime)) 
         tasks.append(task)
-        await asyncio.sleep(tleave*deltatime)
-    await asyncio.gather(*tasks)
+        await asyncio.sleep(tleave * deltatime)
+    try:
+        await asyncio.gather(*tasks)  
+    except asyncio.CancelledError:
+        for task in tasks:
+            task.cancel()  
+        raise

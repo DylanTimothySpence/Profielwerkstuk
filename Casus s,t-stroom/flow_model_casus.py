@@ -1,7 +1,7 @@
 import asyncio
 import csv
-from traffic_casus.dijkstra_casus import run_algorithm
-from traffic_casus.converter_casus import csv_to_adjacency_list
+from dijkstra_casus import run_algorithm
+from converter_casus import csv_to_adjacency_list
 from asyncio import Lock
 
 latency_lock = Lock()
@@ -65,7 +65,7 @@ async def flow(s, t, m, deltatime, tleave, graph):
 #de indicator kan gebruikt worden om gegevens te verzamelen over de stroom
 run_indicator = True #zet deze variabele op false als je de indicator niet wilt gebruiken
 async def indicator(s, t, deltatime, graph): 
-    with open('./traffic_casus/outputpt.csv', 'w', newline='') as csvfile: 
+    with open('./Casus s,t-stroom/output.csv', 'w', newline='') as csvfile: 
         csv_writer = csv.writer(csvfile)
         count = 0
         #header rows:
@@ -99,4 +99,4 @@ async def main(s, t, m, deltatime, tleave, graph):
     )
 
 '''#promt voor runnen van code, vul in: (beginpunt, eindpunt, aantal mensen, deltatime, tijd deur uit te gaan, graaf)
-asyncio.run(main(5, 13, 100, 5, 1, csv_to_adjacency_list('./traffic_casus/casus_graph.csv'))) '''
+asyncio.run(main(5, 13, 100, 5, 1, csv_to_adjacency_list('./Casus s,t-stroom/double_weighted_graph_casus.csv'))) '''
